@@ -2,7 +2,8 @@
 #include <locale.h>
 #include <math.h>
 #include <assert.h>
-#include "F_square.h"
+#include "Functions_for_sqare.h"
+#include "Functions_for_test.h"
 
 int const N_tests = 11;
 
@@ -13,18 +14,18 @@ struct UnitTest {
     double c;
     double true_x1;
     double true_x2;
-    int true_n_roots;
+    int true_n_ans;
 };
 
 
-int deside(double a, double b, double c, double x1, double x2, int n_ans) { // Человек вводит коэффициенты
+int human_decide(double a, double b, double c, double x1, double x2, int n_ans) { // Человек вводит коэффициенты
     printf("Введите через пробел коэффициенты квадратного уравнения:\n");
     if (scanf("%lf %lf %lf", &a, &b, &c) != 3) {
         printf("Неверный ввод!!!");
         return 0;
     }
 
-    n_ans = check(a, b, c, &x1, &x2);
+    n_ans = check_line_or_square(a, b, c, &x1, &x2);
 
     switch (n_ans){
         case 0:
@@ -64,13 +65,13 @@ int test(double a, double b, double c, double x1, double x2, int n_ans) {  // Пр
     for (int i = 0; i < N_tests; i ++){
         x1 = NAN;
         x2 = NAN;
-        n_ans = check(tests[i].a, tests[i].b,tests[i].c, &x1, &x2);
-        if (check_all_numbers(x1, tests[i].true_x1, x2, tests[i].true_x2) && check_n_roots(n_ans, tests[i].true_n_roots)){
+        n_ans = check_line_or_square(tests[i].a, tests[i].b,tests[i].c, &x1, &x2);
+        if (check_all_numbers(x1, tests[i].true_x1, x2, tests[i].true_x2) && check_n_ans(n_ans, tests[i].true_n_ans)){
                 printf("%d - \tOk\n", i + 1);
         } else {
             n_mistakes += 1;
             printf("%d - \tНЕ ПРОШЛО!!!!", i + 1);
-            printf("\tОтвет: (x1=%lf, x2=%lf, корней: %d), Образец: (x1=%lf, x2=%lf, корней: %d)\n", x1, x2, n_ans, tests[i].true_x1, tests[i].true_x2, tests[i].true_n_roots);
+            printf("\tОтвет: (x1=%lf, x2=%lf, корней: %d), Образец: (x1=%lf, x2=%lf, корней: %d)\n", x1, x2, n_ans, tests[i].true_x1, tests[i].true_x2, tests[i].true_n_ans);
         }
     }
     printf("\nКолличество ошибок - %d\n", n_mistakes);
@@ -99,7 +100,7 @@ int main(void)
 
     switch (mode){
         case 2:
-            deside(a, b, c, x1, x2, n_ans);
+            human_decide(a, b, c, x1, x2, n_ans);
             break;
 
         case 1:
