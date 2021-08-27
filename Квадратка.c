@@ -18,6 +18,11 @@ struct UnitTest {
 };
 
 
+/**
+    \brief Функция human_decide работает с человеком.
+    human_decide принимает коэффициенты a, b, c, корни x1 и x2 и число решений.
+    Пользователь вводит коэффициенты a, b, c, и функция возвращает число корней и печатает ответ.
+ */
 int human_decide(double a, double b, double c, double x1, double x2, int n_ans) { // Человек вводит коэффициенты
     printf("Введите через пробел коэффициенты квадратного уравнения:\n");
     if (scanf("%lf %lf %lf", &a, &b, &c) != 3) {
@@ -27,7 +32,7 @@ int human_decide(double a, double b, double c, double x1, double x2, int n_ans) 
 
     n_ans = check_line_or_square(a, b, c, &x1, &x2);
 
-    switch (n_ans){
+    switch (n_ans) {
         case 0:
             printf("Уравнение не имеет решений!");
             break;
@@ -46,11 +51,15 @@ int human_decide(double a, double b, double c, double x1, double x2, int n_ans) 
 }
 
 
+/**
+    \brief Функция test тестирует программу.
+    test принимает коэффициенты a, b, c, корни x1 и x2 и число решений.
+ */
 int test(double a, double b, double c, double x1, double x2, int n_ans) {  // Программа тестирует ввод
     int n_mistakes = 0;
     struct UnitTest tests[N_tests] = {
         {2, 2, 2, NAN, NAN, 0},
-        {0, 0, 0, INFINITY, INFINITY, INFINITY},
+        {0, 0, 0, INFINITY, NAN, INFINITY},
         {0, 2, 3, -1.5, NAN, 1},
         {3, 7, -6, 0.666666666666666, -3, 2},
         {-1, 7, 8, -1, 8, 2},
@@ -62,7 +71,7 @@ int test(double a, double b, double c, double x1, double x2, int n_ans) {  // Пр
         {1, -5, 6, 2, 3, 2}
     };
 
-    for (int i = 0; i < N_tests; i ++){
+    for (int i = 0; i < N_tests; i ++) {
         x1 = NAN;
         x2 = NAN;
         n_ans = check_line_or_square(tests[i].a, tests[i].b,tests[i].c, &x1, &x2);
@@ -98,7 +107,7 @@ int main(void)
 
     assert(mode == 1 || mode == 2);
 
-    switch (mode){
+    switch (mode) {
         case 2:
             human_decide(a, b, c, x1, x2, n_ans);
             break;
