@@ -21,13 +21,15 @@ int check_equality(double x, double true_x) {  // Проверяет совпадение 2 чисел с
 }
 
 /**
-    \brief Функция line решает линейное уравнение.
-    line принимает коэффициенты линейного уравнения и адрес переменной.
+    \brief Функция decide_line решает линейное уравнение.
+    decide_line принимает коэффициенты линейного уравнения и адрес переменной.
     Функция записывает ответ в x1, и возвращает число корней.
  */
 int decide_line(double b, double c, double* x1) // Решает линейную функцию
 {
-    //assert()
+    assert(b!= INFINITY && c!= INFINITY &&
+    b!= NAN && c!= NAN
+    && x1 != 0);
 
     if (! check_equality(b, 0)) {
         *x1 = -c / b;
@@ -43,13 +45,15 @@ int decide_line(double b, double c, double* x1) // Решает линейную функцию
 }
 
 /**
-    \brief Функция square решает квадратное уравнение.
-    line принимает коэффициенты квадратного уравнения и адреса переменных.
+    \brief Функция decide_square решает квадратное уравнение.
+    decide_square принимает коэффициенты квадратного уравнения и адреса переменных.
     Функция записывает ответы в x1 и x2, и возвращает число корней.
  */
 int decide_square(double a, double b, double c, double* x1, double* x2)  // Решает квадрат
 {
-    //assert(a != 0 &&)
+    assert(a != 0 && a!= INFINITY && b!= INFINITY && c!= INFINITY &&
+    a!= NAN && b!= NAN && c!= NAN
+    && x1 != 0 && x2 != 0);
 
     double D = b * b - 4 * a * c;
     double sqrt_D = NAN;
@@ -85,8 +89,8 @@ int check_line_or_square(double a, double b, double c, double* x1, double* x2) {
 }
 
 /**
-    \brief Функция human_decide работает с человеком.
-    human_decide принимает коэффициенты a, b, c, корни x1 и x2 и число решений.
+    \brief Функция work_with_human работает с человеком.
+    work_with_human принимает коэффициенты a, b, c, корни x1 и x2 и число решений.
     Пользователь вводит коэффициенты a, b, c, и функция возвращает число корней и печатает ответ.
  */
 int work_with_human(double a, double b, double c, double x1, double x2, int n_ans) { // Человек вводит коэффициенты
