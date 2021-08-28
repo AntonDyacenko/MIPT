@@ -3,7 +3,7 @@
 #include <math.h>
 
 
-const double ERROR = 1e-6;
+const double PRESSISION = 1e-6;   // pressision
 enum N_ANSVERS{
     ONE = 1,
     TWO = 2,
@@ -11,13 +11,38 @@ enum N_ANSVERS{
     INF = -1
 };
 
+
+int ans_for_human(int n_ans, double x1, double x2) {
+    switch (n_ans) {
+        case NO_ANS:
+            printf("Уравнение не имеет решений!");
+            return 0;
+
+        case ONE:
+            printf("x = %lf", x1);
+            return 0;
+
+        case TWO:
+            printf("x1 = %lf, x2 = %lf", x1, x2);
+            return 0;
+
+        case INF:
+            printf("Решением является любое число");
+            return 0;
+
+        default:
+            printf("Решением является любое число");
+            return 0;
+    }
+}
+
 /**
     \brief Функция check_equality проверяет совпадение 2 чисел с заданной точностью.
     check_equality принимает 2 числа и сравнивает их.
-    Если числа отличаются менее чем на глобальную переменную ERROR, функция возвращает 1, в противном случае - 0.
+    Если числа отличаются менее чем на глобальную переменную PRESSISION, функция возвращает 1, в противном случае - 0.
  */
 int check_equality(double x, double true_x) {  // Проверяет совпадение 2 чисел с заданной точностью
-    return fabs(x - true_x) <= ERROR;    //if is not needed - сделано
+    return fabs(x - true_x) <= PRESSISION;    //if is not needed - сделано
 }
 
 /**
@@ -58,7 +83,7 @@ int decide_square(double a, double b, double c, double* x1, double* x2)  // Реша
     double D = b * b - 4 * a * c;
     double sqrt_D = NAN;
 
-    if (check_equality(D, 0)) { /*ERROR модуль, константа, 2 функции */
+    if (check_equality(D, 0)) { /*PRESSISION модуль, константа, 2 функции */
         sqrt_D = sqrt(D);                //another variable name - сделано
         *x1 = (-b + sqrt_D) / (2 * a);
         *x2 = (-b + sqrt_D) / (2 * a);
@@ -102,26 +127,7 @@ int work_with_human(double a, double b, double c, double x1, double x2, int n_an
     }
 
     n_ans = check_line_or_square(a, b, c, &x1, &x2);
-
-    switch (n_ans) {
-        case NO_ANS:
-            printf("Уравнение не имеет решений!");
-            break;
-
-        case ONE:
-            printf("x = %lf", x1);
-            break;
-
-        case TWO:
-            printf("x1 = %lf, x2 = %lf", x1, x2);
-            break;
-
-        case INF:
-            printf("Решением является любое число");
-            break;
-
-        default:
-            printf("Решением является любое число");
-            break;
-    }
+    ans_for_human(n_ans, x1, x2);
 }
+
+

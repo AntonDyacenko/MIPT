@@ -38,7 +38,7 @@ int main(void) {
             break;
 
         default:
-            test(a, b, c, x1, x2, n_ans);
+            test(x1, x2, n_ans);
             break;
     }
     return 0;
